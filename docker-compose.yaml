@@ -1,8 +1,11 @@
 services:
   jekyll-site:
-    image: jekyll-site
     build: .
-    volumes: [.:/usr/src/app]
-    ports: [4000:4000]
-    user: 1000:1000
-    environment: [JEKYLL_ENV=docker]
+    image: jekyll-site
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - JEKYLL_ENV=docker
+    # user: 1000:1000  <-- Commented this out to fix the file-writing permission issue
