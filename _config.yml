@@ -11,8 +11,8 @@ locale                   : "en-US"
 site_theme               : "default"
 title                    : "Avery Gump / Academic Page"
 title_separator          : "-"
-name                     : &name "Your Name"
-description              : &description "personal description"
+name                     : &name "Avery Gump"
+description              : &description "A personal website for my research and other writing."
 url                      : https://academicpages.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "academicpages/academicpages.github.io"
@@ -23,13 +23,13 @@ repository               : "academicpages/academicpages.github.io"
 author:
   # Biographic information
   avatar           : "profile.png"
-  name             : "Your Sidebar Name"
+  name             : "Avery Gump"
   pronouns         : # example: "she/her"  
-  bio              : "Short biography for the left-hand sidebar"
-  location         : "Earth"
-  employer         : "Red Brick University"
+  bio              : "I am a 2nd year PhD student in Dr. Mohit Gupta's WISION lab. I study dToF LiDAR and its uses in autonomous navigation. Currently I am looking into how these devices operate (or fail) in poor weather conditions."
+  location         : "Wisconsin, Madison"
+  employer         : "University of Wisconsin - Madison"
   uri              : # URL
-  email            : "none@example.org" 
+  email            : "gump@wisc.edu" 
 
   # Academic websites
   arxiv            : # URL - Update with the correct link to your profile
