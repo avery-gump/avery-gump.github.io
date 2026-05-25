@@ -223,6 +223,9 @@ collections:
     permalink: /:collection/:path/
   mainPagePosts:
     output: false
+  blog:
+    output: true
+    permalink: /:collection/:path/
 
 
 # These settings control how pages and collections are included in the site

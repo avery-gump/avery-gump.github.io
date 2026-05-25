@@ -18,37 +18,70 @@ redirect_from:
   {% assign timeline_posts = site.mainPagePosts | sort: 'date' | reverse %}
   {% for post in timeline_posts %}
     
-    {% if post.celebrate %}
-      <div class="snippet-card pop-hover" onclick="triggerCelebration(event)" style="background: var(--global-bg-color, #fafafa); border: 1px solid var(--global-border-color, #e1e4e8); border-left: 5px solid {{ post.accent_color | default: '#333' }}; padding: 20px; border-radius: 6px; cursor: pointer; position: relative;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-          <span class="snippet-tag" style="background: {{ post.accent_color | append: '1A' | default: 'rgba(0,0,0,0.05)' }}; color: {{ post.accent_color | default: '#333' }}; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; font-weight: bold;">
-            🎉 {{ post.tag }}
-          </span>
-          <span class="snippet-date" style="font-size: 0.85em; color: #777;">{{ post.date | date: "%B %Y" }}</span>
+    {% if post.category == 'Celebrate' %}
+      <a href="{% if post.link %}{{ post.link | relative_url }}{% else %}#{% endif %}" class="pop-hover" style="text-decoration: none; color: inherit; display: block;" {% if post.confetti %}onclick="triggerCelebration(event, '{% if post.link %}{{ post.link | relative_url }}{% else %}#{% endif %}')"{% endif %}>
+        <div class="snippet-card" style="background: var(--global-bg-color, #fafafa); border: 1px solid var(--global-border-color, #e1e4e8); border-left: 5px solid {{ post.accent_color | default: '#333' }}; padding: 20px; border-radius: 6px; position: relative;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+            <span class="snippet-tag" style="background: {{ post.accent_color | append: '1A' | default: 'rgba(0,0,0,0.05)' }}; color: {{ post.accent_color | default: '#333' }}; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; font-weight: bold;">
+              🎉 {{ post.tag | default: 'Milestone' }}
+            </span>
+            <span class="snippet-date" style="font-size: 0.85em; color: #777;">{{ post.date | date: "%B %Y" }}</span>
+          </div>
+          <h3 style="margin: 5px 0 8px 0; font-size: 1.25em; font-weight: 700; color: var(--global-text-color, #222);">{{ post.title }}</h3>
+          <div class="snippet-description" style="margin: 0; font-size: 0.95em; line-height: 1.5; color: var(--global-text-color, #444);">
+            {{ post.content | markdownify }}
+          </div>
         </div>
-        
-        <h3 style="margin: 5px 0 8px 0; font-size: 1.25em; font-weight: 700; color: var(--global-text-color, #222);">{{ post.title }}</h3>
-        
-        <div class="snippet-description" style="margin: 0; font-size: 0.95em; line-height: 1.5; color: var(--global-text-color, #444);">
-          {{ post.content | markdownify }}
+      </a>
+
+    {% elsif post.category == 'Project' %}
+      <a href="{% if post.link %}{{ post.link | relative_url }}{% else %}#{% endif %}" class="pop-hover" style="text-decoration: none; color: inherit; display: block;" {% if post.confetti %}onclick="triggerCelebration(event, '{% if post.link %}{{ post.link | relative_url }}{% else %}#{% endif %}')"{% endif %}>
+        <div class="snippet-card" style="background: var(--global-bg-color, #fafafa); border: 1px solid var(--global-border-color, #e1e4e8); border-left: 5px solid {{ post.accent_color | default: '#0078d4' }}; padding: 20px; border-radius: 6px; position: relative;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+            <span class="snippet-tag" style="background: {{ post.accent_color | append: '1A' | default: 'rgba(0, 120, 212, 0.1)' }}; color: {{ post.accent_color | default: '#0078d4' }}; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; font-weight: bold;">
+              🚀 {{ post.tag | default: 'Project Launch' }}
+            </span>
+            <span class="snippet-date" style="font-size: 0.85em; color: #777;">{{ post.date | date: "%B %Y" }}</span>
+          </div>
+          <h3 style="margin: 5px 0 8px 0; font-size: 1.25em; font-weight: 700; color: var(--global-text-color, #222);">{{ post.title }}</h3>
+          <div class="snippet-description" style="margin: 0; font-size: 0.95em; line-height: 1.5; color: var(--global-text-color, #444);">
+            {{ post.content | markdownify }}
+          </div>
+          <div style="margin-top: 12px; font-size: 0.85em; color: {{ post.accent_color | default: '#0078d4' }}; font-weight: 600;">
+            Explore project &rarr;
+          </div>
         </div>
-        
-        <div class="tap-hint" style="margin-top: 12px; font-size: 0.8em; color: {{ post.accent_color }}; font-weight: bold;">
-          Tap to celebrate ✨
+      </a>
+
+    {% elsif post.category == 'Blog' %}
+      <a href="{% if post.link %}{{ post.link | relative_url }}{% else %}#{% endif %}" class="pop-hover" style="text-decoration: none; color: inherit; display: block;" {% if post.confetti %}onclick="triggerCelebration(event, '{% if post.link %}{{ post.link | relative_url }}{% else %}#{% endif %}')"{% endif %}>
+        <div class="snippet-card" style="background: var(--global-bg-color, #fafafa); border: 1px solid var(--global-border-color, #e1e4e8); border-left: 5px solid {{ post.accent_color | default: '#6f42c1' }}; padding: 20px; border-radius: 6px; position: relative;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+            <span class="snippet-tag" style="background: {{ post.accent_color | append: '1A' | default: 'rgba(111, 66, 193, 0.1)' }}; color: {{ post.accent_color | default: '#6f42c1' }}; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; font-weight: bold;">
+              📝 {{ post.tag | default: 'New Post' }}
+            </span>
+            <span class="snippet-date" style="font-size: 0.85em; color: #777;">{{ post.date | date: "%B %Y" }}</span>
+          </div>
+          <h3 style="margin: 5px 0 8px 0; font-size: 1.25em; font-weight: 700; color: var(--global-text-color, #222);">{{ post.title }}</h3>
+          <div class="snippet-description" style="margin: 0; font-size: 0.95em; line-height: 1.5; color: var(--global-text-color, #444);">
+            {{ post.content | markdownify }}
+          </div>
+          <div style="margin-top: 12px; font-size: 0.85em; color: {{ post.accent_color | default: '#6f42c1' }}; font-weight: 600;">
+            Read article &rarr;
+          </div>
         </div>
-      </div>
+      </a>
+
     {% else %}
-      <a href="{{ post.link | default: '#' }}" class="pop-hover" style="text-decoration: none; color: inherit; display: block;">
-        <div class="snippet-card" style="background: var(--global-bg-color, #fafafa); border: 1px solid var(--global-border-color, #e1e4e8); border-left: 5px solid {{ post.accent_color | default: '#333' }}; padding: 20px; border-radius: 6px; cursor: pointer; position: relative;">
+      <a href="{% if post.link %}{{ post.link | relative_url }}{% else %}#{% endif %}" class="pop-hover" style="text-decoration: none; color: inherit; display: block;" {% if post.confetti %}onclick="triggerCelebration(event, '{% if post.link %}{{ post.link | relative_url }}{% else %}#{% endif %}')"{% endif %}>
+        <div class="snippet-card" style="background: var(--global-bg-color, #fafafa); border: 1px solid var(--global-border-color, #e1e4e8); border-left: 5px solid {{ post.accent_color | default: '#333' }}; padding: 20px; border-radius: 6px; position: relative;">
           <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
             <span class="snippet-tag" style="background: {{ post.accent_color | append: '1A' | default: 'rgba(0,0,0,0.05)' }}; color: {{ post.accent_color | default: '#333' }}; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; font-weight: bold;">
               {{ post.tag }}
             </span>
             <span class="snippet-date" style="font-size: 0.85em; color: #777;">{{ post.date | date: "%B %Y" }}</span>
           </div>
-          
           <h3 style="margin: 5px 0 8px 0; font-size: 1.25em; font-weight: 700; color: var(--global-text-color, #222);">{{ post.title }}</h3>
-          
           <div class="snippet-description" style="margin: 0; font-size: 0.95em; line-height: 1.5; color: var(--global-text-color, #444);">
             {{ post.content | markdownify }}
           </div>
@@ -66,8 +99,8 @@ redirect_from:
     transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease !important;
   }
   .pop-hover:hover {
-    transform: translateY(-4px) !important; /* Premium lift effect */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.07) !important; /* Elegant shadow drop */
+    transform: translateY(-4px) !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.07) !important;
   }
   .snippet-description p {
     margin: 0 !important;
@@ -75,10 +108,15 @@ redirect_from:
 </style>
 
 <script>
-function triggerCelebration(e) {
+function triggerCelebration(e, linkUrl) {
+  e.preventDefault();
   const card = e.currentTarget;
   card.style.transform = 'scale(0.98)';
   setTimeout(() => card.style.transform = '', 150);
+
+  if (linkUrl && linkUrl !== '#' && linkUrl !== '') {
+    setTimeout(() => window.location.href = linkUrl, 800);
+  }
 
   const canvas = document.getElementById('confetti-canvas');
   const ctx = canvas.getContext('2d');
@@ -96,7 +134,7 @@ function triggerCelebration(e) {
       angle: Math.random() * Math.PI * 2,
       speed: 15 + Math.random() * 15,
       friction: 0.94,
-      gravity: 2.5,
+      gravity: 1.2,
       color: colors[Math.floor(Math.random() * colors.length)],
       size: 6 + Math.random() * 6,
       rotation: Math.random() * 360,
