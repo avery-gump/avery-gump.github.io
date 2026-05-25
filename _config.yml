@@ -9,8 +9,8 @@
 # Basic Site Settings
 locale                   : "en-US"
 site_theme               : "default"
-title                    : "Avery Gump / Academic Page"
-title_separator          : "-"
+title                    : ""
+title_separator          : ""
 name                     : &name "Avery Gump"
 description              : &description "A personal website for my research and other writing."
 url                      : https://avery-gump.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
@@ -77,10 +77,6 @@ author:
 
 # Publication Category - The following the list of publication categories and their headings
 publication_category:
-  books:
-    title: 'Books'
-  manuscripts:
-    title: 'Journal Articles'    
   conferences:
     title: 'Conference Papers'
 
@@ -225,6 +221,8 @@ collections:
   talks:
     output: true
     permalink: /:collection/:path/
+  mainPagePosts:
+    output: false
 
 
 # These settings control how pages and collections are included in the site

@@ -3,10 +3,16 @@
 <div class="masthead">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
-      <nav id="site-nav" class="greedy-nav">
+      <nav id="site-nav" class="greedy-nav" style="position: relative;">
         <button><div class="navicon"></div></button>
         <ul class="visible-links">
-          <li class="masthead__menu-item masthead__menu-item--lg persist"><a href="{{ base_path }}/">{{ site.title }}</a></li>
+          
+          <li class="masthead__menu-item masthead__menu-item--lg persist" style="display: inline-flex; align-items: center; min-width: 260px; max-width: 260px; box-sizing: border-box;">
+            <a href="{{ base_path }}/" title="Home" style="font-weight: 900; font-size: 1.25em; display: inline-flex; align-items: center; vertical-align: middle;">
+              <i class="fas fa-home"></i>
+            </a>
+          </li>
+          
           {% for link in site.data.navigation.main %}
             {% if link.url contains 'http' %}
               {% assign domain = '' %}
@@ -15,7 +21,8 @@
             {% endif %}
             <li class="masthead__menu-item"><a href="{{ domain }}{{ link.url }}">{{ link.title }}</a></li>
           {% endfor %}
-          <li id="theme-toggle" class="masthead__menu-item persist tail">
+          
+          <li id="theme-toggle" class="masthead__menu-item persist tail" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); margin: 0;">
             <a><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
           </li>
         </ul>

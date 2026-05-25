@@ -25,39 +25,97 @@ layout: default
 
     <div class="page__inner-wrap">
       {% unless page.header.overlay_color or page.header.overlay_image %}
-        <header>
-          {% if page.title %}<h1 class="page__title" itemprop="headline">{{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}</h1>{% endif %}
-          {% if page.read_time %}
-            <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
+        <header style="text-align: center; margin-bottom: 35px; border-bottom: 1px solid rgba(0,0,0,0.07); padding-bottom: 25px;">
+          {% if page.title %}
+            <h1 class="page__title" itemprop="headline" style="margin-bottom: 12px; font-size: 2em; font-weight: 800; line-height: 1.25;">
+              {{ page.title | markdownify | remove: "<p>" | remove: "</p>" }}
+            </h1>
           {% endif %}
-        {% if page.modified %}
-          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ page.modified | date: "%Y-%m-%d" }}">{{ page.modified | date: "%B %d, %Y" }}</time></p>
-        {% endif %}
-        
-        {% if page.collection == 'teaching' %}
-          <p> {{ page.type }}, <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
-        {% elsif page.venue and page.date %}
-          <p>Published in <i>{{ page.venue }}</i>, {{ page.date | default: "1900-01-01" | date: "%Y" }} </p>
-        {% elsif page.date %}
-          <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
-        {% endif %}    
+          
+          {% if page.citation_key and site.data.citations[page.citation_key] %}
+            <p class="page__authors" style="font-size: 1.15em; color: var(--global-text-color, #444); margin: 0; font-weight: 500;">
+              {{ site.data.citations[page.citation_key].authors }}
+            </p>
+          {% endif %}
+
+          {% if page.read_time %}
+            <p class="page__meta" style="margin-top: 10px; font-size: 0.85em; color: #777;"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
+          {% endif %}
         </header>
       {% endunless %}
 
       <section class="page__content" itemprop="text">
         {{ content }}
 
-        {% if page.citation and page.paperurl and page.slidesurl %}
-          <p style="font-size: smaller">Recommended citation: {{ page.citation }}<br /><a href="{{ page.paperurl }}">Download Paper</a> | <a href="{{ page.slidesurl }}">Download Slides</a></p>
-        {% elsif page.citation and page.paperurl %}
-          <p style="font-size: smaller">Recommended citation: {{ page.citation }}<br /><a href="{{ page.paperurl }}">Download Paper</a></p>
-        {% elsif page.citation and page.slidesurl %}
-          <p style="font-size: smaller">Recommended citation: {{ page.citation }}<br /><a href="{{ page.slidesurl }}">Download Slides</a></p>
-        {% elsif page.citation %}
-          <p style="font-size: smaller">Recommended citation: {{ page.citation }}</p>
-        {% elsif page.slidesurl %}
-          <p style="font-size: smaller"><a href="{{ page.slidesurl }}">Download Slides</a></p>
+        {% if page.youtube_id %}
+          <div class="publication-video-container" style="margin: 30px 0; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);">
+            <iframe 
+              src="https://www.youtube.com/embed/{{ page.youtube_id }}" 
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen>
+            </iframe>
+          </div>
         {% endif %}
+
+        <div class="publication-meta-block" style="margin-top: 25px;">
+          
+          {% if page.citation_key and site.data.citations[page.citation_key] %}
+            {% assign cite_data = site.data.citations[page.citation_key] %}
+            <div class="citation-container" style="margin: 20px 0 15px 0; padding: 15px; background: var(--global-bg-color, #f9f9f9); border-left: 4px solid #0078d4; border-radius: 4px; color: var(--global-text-color, #333); text-align: left; position: relative;">
+              
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                <div>
+                  <span style="font-size: 0.95em; font-weight: bold;">Cite as:</span>
+                  <div class="citation-buttons" style="margin: 5px 0 5px 0; display: inline-block; margin-left: 10px;">
+                    <button onclick="switchCitation('apa', 'pub-page', event)" class="cite-btn active" style="background: #0078d4; color: white; border: 1px solid #0078d4; padding: 4px 12px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.85em; font-weight: bold;">APA</button>
+                    <button onclick="switchCitation('ama', 'pub-page', event)" class="cite-btn" style="background: #fff; color: #333; border: 1px solid #ccc; padding: 4px 12px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.85em;">AMA</button>
+                    {% if cite_data.bibtex %}
+                      <button onclick="switchCitation('bibtex', 'pub-page', event)" class="cite-btn" style="background: #fff; color: #333; border: 1px solid #ccc; padding: 4px 12px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.85em;">BibTeX</button>
+                    {% endif %}
+                  </div>
+                </div>
+                
+                <button onclick="copyCitation('pub-page', event)" class="copy-btn" style="background: #e0e0e0; border: none; padding: 5px 12px; cursor: pointer; border-radius: 4px; font-size: 0.8em; font-weight: bold; color: #444; transition: all 0.2s;">📋 Copy</button>
+              </div>
+
+              <div style="margin-top: 12px;">
+                <div id="cite-apa-pub-page" class="citation-text" style="font-size: 0.95em; line-height: 1.5;">
+                  {{ cite_data.authors }}. ({{ cite_data.year }}). "{{ page.title }}." <i>{{ cite_data.journal }}</i>, {{ cite_data.volume }}({{ cite_data.issue }}), {{ cite_data.pages }}.
+                </div>
+
+                <div id="cite-ama-pub-page" class="citation-text" style="display:none; font-size: 0.95em; line-height: 1.5;">
+                  {{ cite_data.authors }}. {{ page.title }}. <i>{{ page.journal }}</i>. {{ cite_data.year }};{{ cite_data.volume }}({{ cite_data.issue }}):{{ page.pages }}.
+                </div>
+
+                {% if cite_data.bibtex %}
+                  <div id="cite-bibtex-pub-page" class="citation-text" style="display:none;">
+                    <pre style="margin: 0; white-space: pre-wrap; font-size: 0.85em; background: rgba(0,0,0,0.05); padding: 10px; border-radius: 4px; color: inherit; text-align: left; font-family: monospace; border: none; box-shadow: none;">{{ cite_data.bibtex }}</pre>
+                  </div>
+                {% endif %}
+              </div>
+              
+            </div>
+          {% elsif page.citation %}
+            <p style="font-size: smaller">Recommended citation: {{ page.citation }}</p>
+          {% endif %}
+
+          {% if page.paperurl or page.slidesurl or page.youtube_id %}
+            <p style="margin: 15px 0; font-size: 1em;">
+              {% if page.paperurl %}
+                <a href="{{ page.paperurl }}" download style="font-weight: bold; margin-right: 5px;">📄 Download Paper</a>
+              {% endif %}
+              {% if page.paperurl and page.slidesurl %} | {% endif %}
+              {% if page.slidesurl %}
+                <a href="{{ page.slidesurl }}" download style="font-weight: bold; margin-left: 5px; margin-right: 5px;">📥 Download Slides</a>
+              {% endif %}
+              {% if page.youtube_id %}
+                | <a href="https://www.youtube.com/watch?v={{ page.youtube_id }}" target="_blank" style="font-weight: bold; margin-left: 5px;">📺 Watch on YouTube</a>
+              {% endif %}
+            </p>
+          {% endif %}
+
+        </div>
 
         {% if page.link %}<div><a href="{{ page.link }}" class="btn">{{ site.data.ui-text[site.locale].ext_link_label | default: "Direct Link" }}</a></div>{% endif %}
       </section>
@@ -79,7 +137,6 @@ layout: default
     {% endif %}
   </article>
 
-  {% comment %}<!-- only show related on a post page when not disabled -->{% endcomment %}
   {% if page.id and page.related and site.related_posts.size > 0 %}
     <div class="page__related">
       {% if site.data.ui-text[site.locale].related_label %}
@@ -93,3 +150,58 @@ layout: default
     </div>
   {% endif %}
 </div>
+
+<script>
+if (typeof switchCitation !== 'function') {
+  window.switchCitation = function(style, postId, e) {
+    if(e) e.preventDefault();
+    const container = e.target.closest('.citation-container');
+    
+    container.querySelectorAll('.citation-text').forEach(el => el.style.display = 'none');
+    
+    const targetEl = container.querySelector('#cite-' + style + '-' + postId);
+    if (targetEl) targetEl.style.display = 'block';
+    
+    container.querySelectorAll('.citation-buttons button').forEach(btn => {
+      btn.style.background = '#fff';
+      btn.style.color = '#333';
+      btn.style.borderColor = '#ccc';
+    });
+    
+    e.target.style.background = '#0078d4';
+    e.target.style.color = 'white';
+    e.target.style.borderColor = '#0078d4';
+  }
+}
+
+if (typeof copyCitation !== 'function') {
+  window.copyCitation = function(postId, e) {
+    if(e) e.preventDefault();
+    const container = e.target.closest('.citation-container');
+    const copyBtn = e.target;
+    
+    let visibleCitation = null;
+    container.querySelectorAll('.citation-text').forEach(el => {
+      if (el.style.display !== 'none') visibleCitation = el;
+    });
+    
+    if (visibleCitation) {
+      const textToCopy = visibleCitation.innerText || visibleCitation.textContent;
+      
+      navigator.clipboard.writeText(textToCopy.trim()).then(() => {
+        copyBtn.innerText = "✅ Copied!";
+        copyBtn.style.background = "#28a745";
+        copyBtn.style.color = "#fff";
+        
+        setTimeout(() => {
+          copyBtn.innerText = "📋 Copy";
+          copyBtn.style.background = "#e0e0e0";
+          copyBtn.style.color = "#444";
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+    }
+  }
+}
+</script>

@@ -18,9 +18,10 @@
 
 .page {
   @include breakpoint($large) {
+    /* CHANGED: Expanded to use the full remaining available space next to the sidebar */
     @include span(10 of 12 last);
     @include prefix(0.5 of 12);
-    @include suffix(2 of 12);
+    @include suffix(0 of 12); /* REMOVED THE RIGHT SIDE COLLATERAL BLANK HOLE */
   }
 
   .page__inner-wrap {
@@ -32,6 +33,12 @@
       @include full();
     }
   }
+}
+
+/* NEW CUSTOM LAYOUT CLASSES FOR CLEAN ACADEMIC DESIGN */
+.publication-centered-body {
+  max-width: 800px;  /* Caps reading layout container to a premium, focused dimension */
+  margin: 0 auto;    /* Centers this container smoothly inside the main layout window */
 }
 
 .page__title {
@@ -383,9 +390,10 @@
   border-top: 1px solid var(--global-border-color);
   @include clearfix();
   float: left;
+  width: 100%; /* CHANGED: Spans the full remaining layout area */
 
   @include breakpoint($large) {
-    @include pre(2.5 of 12);
+    @include pre(0 of 12); /* CHANGED: Aligned with the publication center margin */
   }
 
   a {
