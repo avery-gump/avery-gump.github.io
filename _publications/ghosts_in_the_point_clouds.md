@@ -13,7 +13,7 @@ arxiv: "https://arxiv.org/abs/2605.24753"
 ---
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); margin: 30px 0;">
   <iframe 
-    src="hhttps://www.youtube.com/embed/GOt1ORUL8U4" 
+    src="https://www.youtube.com/embed/GOt1ORUL8U4" 
     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
     allowfullscreen>
@@ -33,7 +33,7 @@ Below see some of our results from this work, see the paper for more detail! Pro
 
 
 <iframe 
-  src="https://uwprod-my.sharepoint.com/personal/gump_wisc_edu/_layouts/15/Doc.aspx?sourcedoc={b98422d6-3445-4cd7-b3a4-f3f37dd74cdf}&amp;action=embedview&amp;wdAr=1.7777777777777777" 
+  src="https://1drv.ms/p/c/755d80330a742869/IQRJcLYTZzBRToA4rehiquAgAar4tbnmlPbfYnrVJ2pJkqw?em=2&amp;wdAr=1.7777777777777777"
   style="width: 100%; aspect-ratio: 16 / 9; border: none; border-radius: 4px;" 
   title="PowerPoint Viewer"
   allowfullscreen="true">
