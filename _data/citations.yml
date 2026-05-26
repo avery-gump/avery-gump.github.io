@@ -1,35 +1,10 @@
 ghosts2026:
-  authors: "Your Name, You, and Co-Author"
-  journal: "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
+  type: "inproceedings"
+  title: "Ghosts in the Point Clouds: De-glaring LiDAR in the Transient Domain"
+  authors: "Gump, Avery and Henley, Connor and Cheong, Sungjin and Prabhakara, Akarsh and Gupta, Mohit"
+  booktitle: "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
   year: 2026
   volume: 1
   issue: 1
   pages: "100-115"
   publisher: "IEEE"
-  bibtex: |
-    @inproceedings{yourname2026ghosts,
-      author = {Name, Your and Co-Author, Second},
-      title = {Ghosts in the Point Clouds: De-glaring LiDAR in the Transient Domain},
-      booktitle = {CVPR},
-      year = {2026},
-      pages = {100--115}
-    }
-
-another_paper_key:
-  authors: "Your Name, You"
-  journal: "Journal 1"
-  year: 2009
-  volume: 1
-  issue: 1
-  pages: "10-20"
-  publisher: "Academic Press"
-  bibtex: |
-    @article{yourname2009ghosts,
-      author = {Name, Your and You, Second},
-      title = {Paper Title Number 1},
-      journal = {Journal 1},
-      year = {2009},
-      volume = {1},
-      number = {1},
-      pages = {10--20}
-    }

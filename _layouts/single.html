@@ -33,8 +33,36 @@ layout: default
           {% endif %}
           
           {% if page.citation_key and site.data.citations[page.citation_key] %}
+            {% assign raw_authors = site.data.citations[page.citation_key].authors %}
+            {% assign author_array = raw_authors | split: " and " %}
+            {% assign formatted_authors = "" %}
+
+            {% for author in author_array %}
+              {% assign name_parts = author | split: ", " %}
+              
+              {% if name_parts.size == 2 %}
+                {% assign first_name = name_parts[1] | strip %}
+                {% assign last_name = name_parts[0] | strip %}
+                {% assign full_name = first_name | append: " " | append: last_name %}
+              {% else %}
+                {% assign full_name = author | strip %}
+              {% endif %}
+
+              {% if forloop.first %}
+                {% assign formatted_authors = full_name %}
+              {% elsif forloop.last %}
+                {% if author_array.size > 2 %}
+                  {% assign formatted_authors = formatted_authors | append: ", and " | append: full_name %}
+                {% else %}
+                  {% assign formatted_authors = formatted_authors | append: " and " | append: full_name %}
+                {% endif %}
+              {% else %}
+                {% assign formatted_authors = formatted_authors | append: ", " | append: full_name %}
+              {% endif %}
+            {% endfor %}
+
             <p class="page__authors" style="font-size: 1.15em; color: var(--global-text-color, #444); margin: 0; font-weight: 500;">
-              {{ site.data.citations[page.citation_key].authors }}
+              {{ formatted_authors }}
             </p>
           {% endif %}
 
@@ -54,7 +82,7 @@ layout: default
               style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
               allowfullscreen>
-            </iframe>
+            </iframe >
           </div>
         {% endif %}
 
@@ -62,6 +90,10 @@ layout: default
           
           {% if page.citation_key and site.data.citations[page.citation_key] %}
             {% assign cite_data = site.data.citations[page.citation_key] %}
+            {% assign venue = cite_data.journal | default: cite_data.booktitle %}
+            {% assign ob = "{" %}
+            {% assign cb = "}" %}
+            
             <div class="citation-container" style="margin: 20px 0 15px 0; padding: 15px; background: var(--global-bg-color, #f9f9f9); border-left: 4px solid #0078d4; border-radius: 4px; color: var(--global-text-color, #333); text-align: left; position: relative;">
               
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
@@ -70,9 +102,7 @@ layout: default
                   <div class="citation-buttons" style="margin: 5px 0 5px 0; display: inline-block; margin-left: 10px;">
                     <button onclick="switchCitation('apa', 'pub-page', event)" class="cite-btn active" style="background: #0078d4; color: white; border: 1px solid #0078d4; padding: 4px 12px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.85em; font-weight: bold;">APA</button>
                     <button onclick="switchCitation('ama', 'pub-page', event)" class="cite-btn" style="background: #fff; color: #333; border: 1px solid #ccc; padding: 4px 12px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.85em;">AMA</button>
-                    {% if cite_data.bibtex %}
-                      <button onclick="switchCitation('bibtex', 'pub-page', event)" class="cite-btn" style="background: #fff; color: #333; border: 1px solid #ccc; padding: 4px 12px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.85em;">BibTeX</button>
-                    {% endif %}
+                    <button onclick="switchCitation('bibtex', 'pub-page', event)" class="cite-btn" style="background: #fff; color: #333; border: 1px solid #ccc; padding: 4px 12px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.85em;">BibTeX</button>
                   </div>
                 </div>
                 
@@ -81,18 +111,26 @@ layout: default
 
               <div style="margin-top: 12px;">
                 <div id="cite-apa-pub-page" class="citation-text" style="font-size: 0.95em; line-height: 1.5;">
-                  {{ cite_data.authors }}. ({{ cite_data.year }}). "{{ page.title }}." <i>{{ cite_data.journal }}</i>, {{ cite_data.volume }}({{ cite_data.issue }}), {{ cite_data.pages }}.
+                  {{ cite_data.authors }}. ({{ cite_data.year }}). "{{ page.title | default: cite_data.title }}." <i>{{ venue }}</i>{% if cite_data.volume %}, {{ cite_data.volume }}{% endif %}{% if cite_data.issue %}({{ cite_data.issue }}){% endif %}{% if cite_data.pages %}, {{ cite_data.pages | replace: '--', '-' }}{% endif %}.
                 </div>
 
                 <div id="cite-ama-pub-page" class="citation-text" style="display:none; font-size: 0.95em; line-height: 1.5;">
-                  {{ cite_data.authors }}. {{ page.title }}. <i>{{ page.journal }}</i>. {{ cite_data.year }};{{ cite_data.volume }}({{ cite_data.issue }}):{{ page.pages }}.
+                  {{ cite_data.authors }}. {{ page.title | default: cite_data.title }}. <i>{{ venue }}</i>. {{ cite_data.year }}{% if cite_data.volume %};{{ cite_data.volume }}{% endif %}{% if cite_data.issue %}({{ cite_data.issue }}){% endif %}{% if cite_data.pages %}:{{ cite_data.pages | replace: '--', '-' }}{% endif %}.
                 </div>
 
-                {% if cite_data.bibtex %}
-                  <div id="cite-bibtex-pub-page" class="citation-text" style="display:none;">
-                    <pre style="margin: 0; white-space: pre-wrap; font-size: 0.85em; background: rgba(0,0,0,0.05); padding: 10px; border-radius: 4px; color: inherit; text-align: left; font-family: monospace; border: none; box-shadow: none;">{{ cite_data.bibtex }}</pre>
-                  </div>
-                {% endif %}
+                <div id="cite-bibtex-pub-page" class="citation-text" style="display:none;">
+                  <pre style="margin: 0; white-space: pre-wrap; font-size: 0.85em; background: rgba(0,0,0,0.05); padding: 10px; border-radius: 4px; color: inherit; text-align: left; font-family: monospace; border: none; box-shadow: none;">@{{ cite_data.type | default: "inproceedings" }}{{ ob }}{{ page.citation_key }},
+  author    = {{ ob }}{{ cite_data.authors }}{{ cb }},
+  title     = {{ ob }}{{ page.title | default: cite_data.title }}{{ cb }},{% if cite_data.journal %}
+  journal   = {{ ob }}{{ cite_data.journal }}{{ cb }},{% elsif cite_data.booktitle %}
+  booktitle = {{ ob }}{{ cite_data.booktitle }}{{ cb }},{% endif %}
+  year      = {{ ob }}{{ cite_data.year }}{{ cb }}{% if cite_data.volume %},
+  volume    = {{ ob }}{{ cite_data.volume }}{{ cb }}{% endif %}{% if cite_data.issue %},
+  number    = {{ ob }}{{ cite_data.issue }}{{ cb }}{% endif %}{% if cite_data.pages %},
+  pages     = {{ ob }}{{ cite_data.pages | replace: '--', '-' | replace: '-', '--' }}{{ cb }}{% endif %}{% if cite_data.publisher %},
+  publisher = {{ ob }}{{ cite_data.publisher }}{{ cb }}{% endif %}
+{{ cb }}</pre>
+                </div>
               </div>
               
             </div>
@@ -166,11 +204,13 @@ if (typeof switchCitation !== 'function') {
       btn.style.background = '#fff';
       btn.style.color = '#333';
       btn.style.borderColor = '#ccc';
+      btn.style.fontWeight = 'normal';
     });
     
     e.target.style.background = '#0078d4';
     e.target.style.color = 'white';
     e.target.style.borderColor = '#0078d4';
+    e.target.style.fontWeight = 'bold';
   }
 }
 
