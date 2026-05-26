@@ -138,17 +138,25 @@ layout: default
             <p style="font-size: smaller">Recommended citation: {{ page.citation }}</p>
           {% endif %}
 
-          {% if page.paperurl or page.slidesurl or page.youtube_id %}
-            <p style="margin: 15px 0; font-size: 1em;">
+          {% if page.paperurl or page.arxiv or page.slidesurl or page.youtube_id %}
+            <p style="margin: 15px 0; font-size: 1em; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
               {% if page.paperurl %}
-                <a href="{{ page.paperurl }}" download style="font-weight: bold; margin-right: 5px;">📄 Download Paper</a>
+                <a href="{{ page.paperurl }}" download style="font-weight: bold;">📄 Download Paper</a>
               {% endif %}
-              {% if page.paperurl and page.slidesurl %} | {% endif %}
+              
               {% if page.slidesurl %}
-                <a href="{{ page.slidesurl }}" download style="font-weight: bold; margin-left: 5px; margin-right: 5px;">📥 Download Slides</a>
+                {% if page.paperurl or page.arxiv %}<span style="color: #aaa;">|</span>{% endif %}
+                <a href="{{ page.slidesurl }}" download style="font-weight: bold;">📥 Download Slides</a>
               {% endif %}
+
+              {% if page.arxiv %}
+                {% if page.paperurl %}<span style="color: #aaa;">|</span>{% endif %}
+                <a href="{{ page.arxiv }}" target="_blank" style="font-weight: bold;">📜 arXiv</a>
+              {% endif %}
+              
               {% if page.youtube_id %}
-                | <a href="https://www.youtube.com/watch?v={{ page.youtube_id }}" target="_blank" style="font-weight: bold; margin-left: 5px;">📺 Watch on YouTube</a>
+                {% if page.paperurl or page.arxiv or page.slidesurl %}<span style="color: #aaa;">|</span>{% endif %}
+                <a href="https://www.youtube.com/watch?v={{ page.youtube_id }}" target="_blank" style="font-weight: bold;">📺 Watch on YouTube</a>
               {% endif %}
             </p>
           {% endif %}

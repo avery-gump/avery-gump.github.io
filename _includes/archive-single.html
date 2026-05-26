@@ -12,7 +12,7 @@
   {% assign title = post.title %}
 {% endif %}
 
-<div class="{{ include.type | default: "list" }}__item">
+<div class="{{ include.type | default: 'list' }}__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     {% if include.type == "grid" and teaser %}
       <div class="archive__item-teaser">
@@ -20,7 +20,7 @@
           {% if teaser contains "://" %}
             "{{ teaser }}"
           {% else %}
-            "{{ teaser | prepend: "/images/" | prepend: base_path }}"
+            "{{ teaser | prepend: '/images/' | prepend: base_path }}"
           {% endif %}
           alt="">
       </div>
@@ -34,81 +34,132 @@
       {% endif %}
     </h2>
     
+    {% if post.citation_key and site.data.citations[post.citation_key] %}
+      {% assign raw_authors = site.data.citations[post.citation_key].authors %}
+      {% assign author_array = raw_authors | split: " and " %}
+      {% assign formatted_authors = "" %}
+
+      {% for author in author_array %}
+        {% assign name_parts = author | split: ", " %}
+        
+        {% if name_parts.size == 2 %}
+          {% assign first_name = name_parts[1] | strip %}
+          {% assign last_name = name_parts[0] | strip %}
+          {% assign full_name = first_name | append: " " | append: last_name %}
+        {% else %}
+          {% assign full_name = author | strip %}
+        {% endif %}
+
+        {% if forloop.first %}
+          {% assign formatted_authors = full_name %}
+        {% elsif forloop.last %}
+          {% if author_array.size > 2 %}
+            {% assign formatted_authors = formatted_authors | append: ", and " | append: full_name %}
+          {% else %}
+            {% assign formatted_authors = formatted_authors | append: " and " | append: full_name %}
+          {% endif %}
+        {% else %}
+          {% assign formatted_authors = formatted_authors | append: ", " | append: full_name %}
+        {% endif %}
+      {% endfor %}
+
+      <p class="page__authors" style="font-size: 1.05em; color: var(--global-text-color, #444); margin: 0 0 5px 0; font-weight: 500;">
+        {{ formatted_authors }}
+      </p>
+    {% endif %}
+
     {% if post.read_time %}
       <p class="page__meta"><i class="fa fa-clock" aria-hidden="true"></i> {% include read-time.html %}</p>
     {% endif %}
 
     {% if post.collection == 'teaching' %}
-      <p> {{ post.type }}, <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
+      <p class="page__meta"> {{ post.type }}, <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
     {% elsif post.collection == 'publications' %}
-      <p>Published in <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
+      <p class="page__meta">Published in <i>{{ post.venue }}</i>, {{ post.date | default: "1900-01-01" | date: "%Y" }} </p>
     {% elsif post.date %}
-       <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ post.date | default: "1900-01-01" | date_to_xmlschema }}">{{ post.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
+      <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].date_label | default: "Published:" }}</strong> <time datetime="{{ post.date | default: "1900-01-01" | date_to_xmlschema }}">{{ post.date | default: "1900-01-01" | date: "%B %d, %Y" }}</time></p>
     {% endif %}
 
     {% if post.excerpt and site.read_more != 'enabled' %}
       <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify }}</p>
     {% elsif post.excerpt and site.read_more == 'enabled' %}
-      <p class="archive__item-excerpt" itemprop="description"><p>{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong></p></p>
+      <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}<strong><a href="{{ base_path }}{{ post.url }}" rel="permalink"> Read more</a></strong></p>
     {% endif %}
-    
-    <div class="publication-meta-block" style="margin-top: 10px;">
-      
+
+    {% if post.collection == 'publications' %}
       {% if post.citation_key and site.data.citations[post.citation_key] %}
         {% assign cite_data = site.data.citations[post.citation_key] %}
-        {% capture unique_id %}cite-box-{{ forloop.index | default: 1 }}{% endcapture %}
-
-        <div class="citation-container" style="margin: 15px 0 10px 0; padding: 12px; background: var(--global-bg-color, #f9f9f9); border-left: 4px solid #0078d4; border-radius: 4px; color: var(--global-text-color, #333); text-align: left; position: relative;">
+        {% assign venue = cite_data.journal | default: cite_data.booktitle %}
+        {% assign ob = "{" %}
+        {% assign cb = "}" %}
+        {% assign unique_id = post.url | slugify | default: forloop.index %}
+        
+        <div class="citation-container" style="margin: 15px 0 35px 0; padding: 15px; background: var(--global-bg-color, #f9f9f9); border-left: 4px solid #0078d4; border-radius: 4px; color: var(--global-text-color, #333); text-align: left; position: relative;">
           
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
             <div>
-              <span style="font-size: 0.9em; font-weight: bold;">Cite as:</span>
+              <span style="font-size: 0.95em; font-weight: bold;">Cite as:</span>
               <div class="citation-buttons" style="margin: 5px 0 5px 0; display: inline-block; margin-left: 10px;">
-                <button onclick="switchCitation('apa', '{{ unique_id }}', event)" class="cite-btn active" style="background: #0078d4; color: white; border: 1px solid #0078d4; padding: 3px 10px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.8em; font-weight: bold;">APA</button>
-                <button onclick="switchCitation('ama', '{{ unique_id }}', event)" class="cite-btn" style="background: #fff; color: #333; border: 1px solid #ccc; padding: 3px 10px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.8em;">AMA</button>
-                {% if cite_data.bibtex %}
-                  <button onclick="switchCitation('bibtex', '{{ unique_id }}', event)" class="cite-btn" style="background: #fff; color: #333; border: 1px solid #ccc; padding: 3px 10px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.8em;">BibTeX</button>
-                {% endif %}
+                <button onclick="switchCitation('apa', '{{ unique_id }}', event)" class="cite-btn active" style="background: #0078d4; color: white; border: 1px solid #0078d4; padding: 4px 12px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.85em; font-weight: bold;">APA</button>
+                <button onclick="switchCitation('ama', '{{ unique_id }}', event)" class="cite-btn" style="background: #fff; color: #333; border: 1px solid #ccc; padding: 4px 12px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.85em;">AMA</button>
+                <button onclick="switchCitation('bibtex', '{{ unique_id }}', event)" class="cite-btn" style="background: #fff; color: #333; border: 1px solid #ccc; padding: 4px 12px; margin-right: 5px; cursor: pointer; border-radius: 4px; font-size: 0.85em;">BibTeX</button>
               </div>
             </div>
             
-            <button onclick="copyCitation('{{ unique_id }}', event)" class="copy-btn" style="background: #e0e0e0; border: none; padding: 4px 10px; cursor: pointer; border-radius: 4px; font-size: 0.75em; font-weight: bold; color: #444; transition: all 0.2s;">📋 Copy</button>
+            <button onclick="copyCitation('{{ unique_id }}', event)" class="copy-btn" style="background: #e0e0e0; border: none; padding: 5px 12px; cursor: pointer; border-radius: 4px; font-size: 0.8em; font-weight: bold; color: #444; transition: all 0.2s;">📋 Copy</button>
           </div>
 
-          <div style="margin-top: 10px;">
-            <div id="cite-apa-{{ unique_id }}" class="citation-text" style="font-size: 0.9em; line-height: 1.4;">
-              {{ cite_data.authors }}. ({{ cite_data.year }}). "{{ post.title }}." <i>{{ cite_data.journal }}</i>, {{ cite_data.volume }}({{ cite_data.issue }}), {{ cite_data.pages }}.
+          <div style="margin-top: 12px;">
+            <div id="cite-apa-{{ unique_id }}" class="citation-text" style="font-size: 0.95em; line-height: 1.5;">
+              {{ cite_data.authors }}. ({{ cite_data.year }}). "{{ post.title | default: cite_data.title }}." <i>{{ venue }}</i>{% if cite_data.volume %}, {{ cite_data.volume }}{% endif %}{% if cite_data.issue %}({{ cite_data.issue }}){% endif %}{% if cite_data.pages %}, {{ cite_data.pages | replace: '--', '-' }}{% endif %}.
             </div>
 
-            <div id="cite-ama-{{ unique_id }}" class="citation-text" style="display:none; font-size: 0.9em; line-height: 1.4;">
-              {{ cite_data.authors }}. {{ post.title }}. <i>{{ cite_data.journal }}</i>. {{ cite_data.year }};{{ cite_data.volume }}({{ cite_data.issue }}):{{ cite_data.pages }}.
+            <div id="cite-ama-{{ unique_id }}" class="citation-text" style="display:none; font-size: 0.95em; line-height: 1.5;">
+              {{ cite_data.authors }}. {{ post.title | default: cite_data.title }}. <i>{{ venue }}</i>. {{ cite_data.year }}{% if cite_data.volume %};{{ cite_data.volume }}{% endif %}{% if cite_data.issue %}({{ cite_data.issue }}){% endif %}{% if cite_data.pages %}:{{ cite_data.pages | replace: '--', '-' }}{% endif %}.
             </div>
 
-            {% if cite_data.bibtex %}
-              <div id="cite-bibtex-{{ unique_id }}" class="citation-text" style="display:none;">
-                <pre style="margin: 0; white-space: pre-wrap; font-size: 0.8em; background: rgba(0,0,0,0.05); padding: 8px; border-radius: 4px; color: inherit; text-align: left; font-family: monospace; border: none; box-shadow: none;">{{ cite_data.bibtex }}</pre>
-              </div>
-            {% endif %}
+            <div id="cite-bibtex-{{ unique_id }}" class="citation-text" style="display:none;">
+              <pre style="margin: 0; white-space: pre-wrap; font-size: 0.85em; background: rgba(0,0,0,0.05); padding: 10px; border-radius: 4px; color: inherit; text-align: left; font-family: monospace; border: none; box-shadow: none;">@{{ cite_data.type | default: "inproceedings" }}{{ ob }}{{ post.citation_key }},
+  author    = {{ ob }}{{ cite_data.authors }}{{ cb }},
+  title     = {{ ob }}{{ post.title | default: cite_data.title }}{{ cb }},{% if cite_data.journal %}
+  journal   = {{ ob }}{{ cite_data.journal }}{{ cb }},{% elsif cite_data.booktitle %}
+  booktitle = {{ ob }}{{ cite_data.booktitle }}{{ cb }},{% endif %}
+  year      = {{ ob }}{{ cite_data.year }}{{ cb }}{% if cite_data.volume %},
+  volume    = {{ ob }}{{ cite_data.volume }}{{ cb }}{% endif %}{% if cite_data.issue %},
+  number    = {{ ob }}{{ cite_data.issue }}{{ cb }}{% endif %}{% if cite_data.pages %},
+  pages     = {{ ob }}{{ cite_data.pages | replace: '--', '-' | replace: '-', '--' }}{{ cb }}{% endif %}{% if cite_data.publisher %},
+  publisher = {{ ob }}{{ cite_data.publisher }}{{ cb }}{% endif %}
+{{ cb }}</pre>
+            </div>
           </div>
           
         </div>
       {% elsif post.citation %}
         <p>Recommended citation: {{ post.citation }}</p>
       {% endif %}
-
-      {% if post.paperurl or post.slidesurl %}
-        <p style="margin: 5px 0; font-size: 0.95em;">
+      {% if post.paperurl or post.arxiv or post.slidesurl or post.youtube_id %}
+        <p style="margin: 10px 0 25px 0; font-size: 0.95em; display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
           {% if post.paperurl %}
             <a href="{{ post.paperurl }}" download style="font-weight: bold;">📄 Download Paper</a>
           {% endif %}
-          {% if post.paperurl and post.slidesurl %} | {% endif %}
+          
           {% if post.slidesurl %}
+            {% if post.paperurl or post.arxiv %}<span style="color: #aaa;">|</span>{% endif %}
             <a href="{{ post.slidesurl }}" download style="font-weight: bold;">📥 Download Slides</a>
+          {% endif %}
+
+          {% if post.arxiv %}
+            {% if post.paperurl %}<span style="color: #aaa;">|</span>{% endif %}
+            <a href="{{ post.arxiv }}" target="_blank" style="font-weight: bold;">📜 arXiv</a>
+          {% endif %}
+          
+          {% if post.youtube_id %}
+            {% if post.paperurl or post.arxiv or post.slidesurl %}<span style="color: #aaa;">|</span>{% endif %}
+            <a href="https://www.youtube.com/watch?v={{ post.youtube_id }}" target="_blank" style="font-weight: bold;">📺 Watch on YouTube</a>
           {% endif %}
         </p>
       {% endif %}
-
-    </div>
+    {% endif %}
 
   </article>
 </div>
@@ -122,19 +173,19 @@ if (typeof switchCitation !== 'function') {
     container.querySelectorAll('.citation-text').forEach(el => el.style.display = 'none');
     
     const targetEl = container.querySelector('#cite-' + style + '-' + postId);
-    if (targetEl) {
-      targetEl.style.display = 'block';
-    }
+    if (targetEl) targetEl.style.display = 'block';
     
     container.querySelectorAll('.citation-buttons button').forEach(btn => {
       btn.style.background = '#fff';
       btn.style.color = '#333';
       btn.style.borderColor = '#ccc';
+      btn.style.fontWeight = 'normal';
     });
     
     e.target.style.background = '#0078d4';
     e.target.style.color = 'white';
     e.target.style.borderColor = '#0078d4';
+    e.target.style.fontWeight = 'bold';
   }
 }
 
@@ -146,9 +197,7 @@ if (typeof copyCitation !== 'function') {
     
     let visibleCitation = null;
     container.querySelectorAll('.citation-text').forEach(el => {
-      if (el.style.display !== 'none') {
-        visibleCitation = el;
-      }
+      if (el.style.display !== 'none') visibleCitation = el;
     });
     
     if (visibleCitation) {
