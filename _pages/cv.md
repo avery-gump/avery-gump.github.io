@@ -63,8 +63,16 @@ Activities & Service
 Publications
 ======
 
-Gump, A.<sup>*</sup>, Henely, C.<sup>*</sup>, Cheong, S., Prabhakara, A., & Gupta, M. (2025). [*Ghosts in the Point Clouds: De-glaring LiDAR in the Transient Domain.*](/publications/ghosts_in_the_point_clouds) CVPR 2026.
-
-Kaur, S., Gump, A., Xiao, Y., Xin, J., Sharma, H., Benway, N. R., Preston, J. L., & Salekin, A. (2025). [*CROP: Context-wise Robust Static Human-Sensing Personalization.*](/publications/CroPP) Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 9(2), Article 37. 
-
-Testa, B., Xiao, Y., Sharma, H., Gump, A., & Salekin, A. (2023). [*Privacy against Real-Time Speech Emotion Detection via Acoustic Adversarial Evasion of Machine Learning.*](/publications/privacy-smart-speakers) Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies, 7(3), Article 126.
+<div class="cv-publications">
+  {% assign sorted_pubs = site.publications | sort: 'date' | reverse %}
+  {% for pub in sorted_pubs %}
+    {% if pub.citation_key and site.data.citations[pub.citation_key] %}
+      {% assign cite_data = site.data.citations[pub.citation_key] %}
+      {% assign venue = cite_data.journal | default: cite_data.booktitle %}
+      
+      <p style="margin-bottom: 15px; line-height: 1.5;">
+        {{ cite_data.authors | replace: 'Gump, Avery', '<strong>Gump, Avery</strong>' }}. ({{ cite_data.year }}). <a href="{{ pub.url | relative_url }}">"{{ pub.title | default: cite_data.title }}."</a> <i>{{ venue }}</i>{% if cite_data.volume %}, {{ cite_data.volume }}{% endif %}{% if cite_data.issue %}({{ cite_data.issue }}){% endif %}{% if cite_data.pages %}, {{ cite_data.pages | replace: '--', '-' }}{% endif %}.
+      </p>
+    {% endif %}
+  {% endfor %}
+</div>

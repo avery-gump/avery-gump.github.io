@@ -8,3 +8,25 @@ ghosts2026:
   issue: 1
   pages: "100-115"
   publisher: "IEEE"
+
+  crop2025:
+  type: "article"
+  title: "CROP: Context-wise Robust Static Human-Sensing Personalization"
+  authors: "Kaur, S. and Gump, Avery and Xiao, Y. and Xin, J. and Sharma, H. and Benway, N. R. and Preston, J. L. and Salekin, A."
+  journal: "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies"
+  year: 2025
+  volume: 9
+  issue: 2
+  pages: "Article 37"
+  publisher: "ACM"
+
+privacy2023:
+  type: "article"
+  title: "Privacy against Real-Time Speech Emotion Detection via Acoustic Adversarial Evasion of Machine Learning"
+  authors: "Testa, B. and Xiao, Y. and Sharma, H. and Gump, Avery and Salekin, A."
+  journal: "Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologies"
+  year: 2023
+  volume: 7
+  issue: 3
+  pages: "Article 126"
+  publisher: "ACM"
