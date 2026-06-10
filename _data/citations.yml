@@ -1,3 +1,10 @@
+visionsim2026:
+  type: "unpublished"
+  title: "VisionSIM: Beyond Idealized Sensors — A Multi-Modal Simulator for Robot Perception"
+  authors: "Jungerman, Sacha and Sadekar, Kaustubh and Gump, Avery and Narayanan, Sriram and Gupta, Shantanu and Deka, Bhuyashi and Narasimhan, Srinivasa and Ingle, Atul and Gupta, Mohit"
+  booktitle: "Under review at the Conference on Robot Learning (CoRL)"
+  year: 2026
+
 ghosts2026:
   type: "inproceedings"
   title: "Ghosts in the Point Clouds: De-glaring LiDAR in the Transient Domain"
@@ -9,7 +16,7 @@ ghosts2026:
   pages: "100-115"
   publisher: "IEEE"
 
-  crop2025:
+crop2025:
   type: "article"
   title: "CROP: Context-wise Robust Static Human-Sensing Personalization"
   authors: "Kaur, S. and Gump, Avery and Xiao, Y. and Xin, J. and Sharma, H. and Benway, N. R. and Preston, J. L. and Salekin, A."
