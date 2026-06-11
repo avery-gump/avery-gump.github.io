@@ -2,7 +2,7 @@
 title: "Ghosts in the Point Clouds: De-glaring LiDAR in the Transient Domain"
 collection: publications
 category: conferences
-permalink: /publication/ghosts-in-the-point-clouds
+permalink: /publications/ghosts-in-the-point-clouds
 excerpt: 'In this work we looked at an overlooked but critical failure mode in SP-LiDAR known as glare (or to the LiDAR community bloom).'
 date: 2026-08-06
 venue: 'CVPR'

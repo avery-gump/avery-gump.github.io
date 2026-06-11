@@ -153,6 +153,7 @@ include:
   - .htaccess
   - _pages
   - files
+  - images
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"
@@ -224,6 +225,9 @@ collections:
   mainPagePosts:
     output: false
   blog:
+    output: true
+    permalink: /:collection/:path/
+  personal:
     output: true
     permalink: /:collection/:path/
 

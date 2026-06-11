@@ -59,6 +59,7 @@ Skills
 
 Honors & Awards
 ======
+* NSF INTEGRATE Fellow (2026)
 * Earl H. DeVoe Prize for Outstanding Undergraduate Research 
 * Phi Beta Kappa Inductee (2024) 
 * Alpha Sigma Lambda Honor Society Inductee (2020) 

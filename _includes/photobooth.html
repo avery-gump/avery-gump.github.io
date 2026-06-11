@@ -1,0 +1,138 @@
+{% assign gallery_id = include.folder | slugify | append: "-gallery" %}
+{% assign cleaned_image_paths = "" %}
+
+{% for file in site.static_files %}
+  {% assign file_path_lowered = file.path | downcase %}
+  {% assign target_folder_lowered = include.folder | downcase %}
+  
+  {% if file_path_lowered contains target_folder_lowered %}
+    {% if file_path_lowered contains '.jpg' or file_path_lowered contains '.jpeg' or file_path_lowered contains '.png' or file_path_lowered contains '.webp' or file_path_lowered contains '.gif' %}
+      {% assign cleaned_image_paths = cleaned_image_paths | append: file.path | append: "|||" %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if cleaned_image_paths == "" %}
+  <div style="padding: 20px; background: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: 6px; max-width: 650px; margin: 30px auto; font-family: sans-serif;">
+    <h4 style="margin-top:0;">📷 Photo Booth Status: Empty Folder</h4>
+    <p style="margin-bottom:0; font-size:0.95em;">No images found matching folder target: <code>/images/{{ include.folder }}/</code></p>
+  </div>
+{% else %}
+  
+  {% assign final_photo_array = cleaned_image_paths | split: "|||" | sort %}
+  
+  <div class="gallery-container" id="{{ gallery_id }}" style="max-width: 650px; margin: 30px auto; user-select: none;">
+    
+    <div class="gallery-caption-box" style="text-align: center; margin-bottom: 12px; font-weight: 600; font-size: 1.15em; color: var(--global-text-color, #222); min-height: 1.4em;"></div>
+
+    <div class="gallery-main-view" style="position: relative; width: 100%; height: 400px; background: #111; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+      <img class="active-gallery-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Gallery Photo Preview" style="max-width: 100%; max-height: 100%; object-fit: contain; transition: opacity 0.15s ease;">
+      
+      <button type="button" class="gallery-nav-btn prev" style="position: absolute; left: 10px; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.2em; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 10;">&#10094;</button>
+      <button type="button" class="gallery-nav-btn next" style="position: absolute; right: 10px; background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 1.2em; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; z-index: 10;">&#10095;</button>
+    </div>
+
+    <div class="gallery-thumbnails-row" style="display: flex; gap: 8px; margin-top: 12px; overflow-x: auto; padding-bottom: 5px; scrollbar-width: thin;">
+      {% for path in final_photo_array %}
+        {% assign stripped_path = path | strip %}
+        {% if stripped_path.size > 0 %}
+          <img src="{{ stripped_path | relative_url }}" class="gallery-thumb" data-raw-path="{{ stripped_path }}" style="width: 75px; height: 55px; opacity: 0.4; cursor: pointer; border-radius: 4px; object-fit: cover; flex-shrink: 0; border: 2px solid transparent;">
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <style>
+    .gallery-nav-btn:hover { background: rgba(0,0,0,0.8) !important; }
+    .gallery-thumb { transition: all 0.2s ease; }
+    .gallery-thumb:hover { opacity: 0.8 !important; }
+    .gallery-thumb.active { opacity: 1 !important; border: 2px solid var(--global-accent-color, #1bc7ed) !important; }
+  </style>
+
+  <script data-cfasync="false">
+    (function() {
+      function initGalleries() {
+        var galleries = document.querySelectorAll('.gallery-container');
+        
+        for (var g = 0; g < galleries.length; g++) {
+          var wrapper = galleries[g];
+          
+          if (wrapper.getAttribute('data-initialized')) { continue; }
+          wrapper.setAttribute('data-initialized', 'true');
+
+          var mainImg = wrapper.querySelector('.active-gallery-img');
+          var captionBox = wrapper.querySelector('.gallery-caption-box');
+          var prevBtn = wrapper.querySelector('.gallery-nav-btn.prev');
+          var nextBtn = wrapper.querySelector('.gallery-nav-btn.next');
+          var thumbs = wrapper.querySelectorAll('.gallery-thumb');
+
+          if (thumbs.length === 0) { continue; }
+
+          (function(wrapper, mainImg, captionBox, prevBtn, nextBtn, thumbs) {
+            var currentIndex = 0;
+
+            for (var i = 0; i < thumbs.length; i++) {
+              (function(index) {
+                thumbs[index].addEventListener('click', function() {
+                  currentIndex = index;
+                  updateGalleryView();
+                });
+              })(i);
+            }
+
+            prevBtn.addEventListener('click', function() {
+              currentIndex--;
+              if (currentIndex < 0) { currentIndex = thumbs.length - 1; }
+              updateGalleryView();
+            });
+
+            nextBtn.addEventListener('click', function() {
+              currentIndex++;
+              if (currentIndex >= thumbs.length) { currentIndex = 0; }
+              updateGalleryView();
+            });
+
+            function getCleanCaption(pathString) {
+              if (!pathString) { return ""; }
+              var filename = pathString.substring(pathString.lastIndexOf('/') + 1);
+              var cleanName = filename.substring(0, filename.lastIndexOf('.')) || filename;
+              try { cleanName = decodeURIComponent(cleanName); } catch(e) {}
+              cleanName = cleanName.replace(/^\d+[-_]\s*/, ''); 
+              cleanName = cleanName.replace(/[_-]/g, ' ');   
+              return cleanName;
+            }
+
+            function updateGalleryView() {
+              mainImg.style.opacity = 0;
+              
+              setTimeout(function() {
+                var activeThumb = thumbs[currentIndex];
+                mainImg.src = activeThumb.getAttribute('src');
+                var rawPath = activeThumb.getAttribute('data-raw-path');
+                captionBox.textContent = getCleanCaption(rawPath);
+                mainImg.style.opacity = 1;
+              }, 100);
+
+              for (var j = 0; j < thumbs.length; j++) {
+                if (j === currentIndex) {
+                  thumbs[j].classList.add('active');
+                  thumbs[j].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                } else {
+                  thumbs[j].classList.remove('active');
+                }
+              }
+            }
+
+            updateGalleryView();
+          })(wrapper, mainImg, captionBox, prevBtn, nextBtn, thumbs);
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initGalleries);
+      } else {
+        initGalleries();
+      }
+    })();
+  </script>
+{% endif %}
