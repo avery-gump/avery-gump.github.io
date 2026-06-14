@@ -12,12 +12,7 @@ citation_key: 'ghosts2026'
 arxiv: "https://arxiv.org/abs/2605.24753"
 ---
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); margin: 30px 0;">
-  <iframe 
-    src="https://www.youtube.com/embed/GOt1ORUL8U4" 
-    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    allowfullscreen>
-  </iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/k6OHv7xaykc?si=qml4NOBeZroNcfvj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
 
 ## Problem 
