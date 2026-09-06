@@ -34,7 +34,7 @@ Research & Work Experience
 * Currently working on a novel soft robotics gripper for water and medication delivery in nursing homes.
 
 ### **Research Assistant** | UW Madison 
-*May 2025 - Jan 2026: Developing solutions for flash SP-LiDAR to enable autonomous driving robust to critical, long tail, failure modes. 
+May 2025 - Jan 2026: Developing solutions for flash SP-LiDAR to enable autonomous driving robust to critical, long tail, failure modes. 
 * Modeled SP-LiDAR glare as a linear inverse problem and correcting artifacts via a training-free inversion process in the raw transient histogram domain. 
 * Helping to design a SP-LiDAR simulator, VisionSIM, that models phyiscal sensor non-idealities such as glare. 
 * Currently working on quantifying LiDAR uncertainty in poor weather conditions.
