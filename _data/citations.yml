@@ -2,8 +2,8 @@ visionsim2026:
   type: "unpublished"
   title: "VisionSIM: Beyond Idealized Sensors — A Multi-Modal Simulator for Robot Perception"
   authors: "Jungerman, Sacha and Sadekar, Kaustubh and Gump, Avery and Narayanan, Sriram and Gupta, Shantanu and Deka, Bhuyashi and Narasimhan, Srinivasa and Ingle, Atul and Gupta, Mohit"
-  booktitle: "CORL 2027"
-  year: 2026
+  booktitle: "Conference on Robot Learning (CoRL)"
+  year: 2027
 
 ghosts2026:
   type: "inproceedings"

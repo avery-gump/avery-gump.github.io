@@ -29,6 +29,10 @@ Education
 Research & Work Experience
 ======
 
+### **INTEGRATE Fellow** | UW Madison 
+*May 2025 - Current*: Fellow for NSF INTEGRATE which develops robotics for the workplace. 
+* Currently working on a novel soft robotics gripper for water and medication delivery in nursing homes.
+
 ### **Research Assistant** | UW Madison 
 *May 2025 - Current*: Developing solutions for flash SP-LiDAR to enable autonomous driving robust to critical, long tail, failure modes. 
 * Modeled SP-LiDAR glare as a linear inverse problem and correcting artifacts via a training-free inversion process in the raw transient histogram domain. 
