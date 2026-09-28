@@ -22,58 +22,10 @@ Education
 ======
 * **Ph.D. in Computer Sciences**, University of Wisconsin - Madison, Spring 2030 (anticipated) 
   * Advisor: Dr. Mohit Gupta 
-  * Research Focus: Single-photon LiDAR sensing and computational imaging. 
+  * Research Focus: Single-photon LiDAR sensing and computational imaging. Statistical methods for LiDAR processing in the raw transient histogram domain. 
 * **B.S. in Computer Science and Mathematics (Distinction)**, Syracuse University, Spring 2024 
   * *Summa Cum Laude* (Cumulative GPA: 3.98/4.0) 
 
-Research & Work Experience
-======
-
-### **INTEGRATE Fellow** | UW Madison 
-*Jan 2026 - Current*: Fellow for NSF INTEGRATE which develops robotics for the workplace. 
-* Currently working on a novel soft robotics gripper for water and medication delivery in nursing homes.
-
-### **Research Assistant** | UW Madison 
-May 2025 - Jan 2026: Developing solutions for flash SP-LiDAR to enable autonomous driving robust to critical, long tail, failure modes. 
-* Modeled SP-LiDAR glare as a linear inverse problem and correcting artifacts via a training-free inversion process in the raw transient histogram domain. 
-* Helping to design a SP-LiDAR simulator, VisionSIM, that models phyiscal sensor non-idealities such as glare. 
-* Currently working on quantifying LiDAR uncertainty in poor weather conditions.
-
-### **Intern (Contractor for USRA)** | Air Force Research Laboratories (Rome, NY) 
-*Jun 2023 - Aug 2023*: Developed a novel hierarchical active sampling method utilizing a self-supervised approach. 
-* Looked into how self-supervised approaches can improve active learning through the inference of identifiable clusters. 
-
-### **Undergraduate Research Assistant** | Syracuse University 
-*May 2022 - Aug 2022*:  Developed a Python web scraper to harvest and automate the downloading of Alexa audio files by inspecting network traffic. 
-* Created a synchronous recording and playback program for separate audio files across multiple sound devices. 
-
-Teaching Experience
-======
-
-### **Teaching Assistant (Data Science Programming in Python II)** | UW Madison 
-*Jan 2025 - May 2025*: Led lab sessions, facilitated programming practice, and provided one-on-one student mentoring under Dr. Gurmail Singh. 
-
-### **Teaching Assistant (Discrete Mathematics)** | UW Madison 
-*Sep 2024 - Dec 2024* Co-led discussion sections, graded assignments, mentored students during office hours, and managed Piazza under Dr. Beck Hasti. 
-
-Skills
-======
-* **Languages:** C++, Python (Advanced); UNIX, Java, C, SQL, Haskell, R, MATLAB (Proficient) 
-* **Frameworks/Tools:** Docker, TensorFlow, scikit-learn, PyTorch, HTCondor, Alchemy 
-
-Honors & Awards
-======
-* NSF INTEGRATE Fellow (2026)
-* Earl H. DeVoe Prize for Outstanding Undergraduate Research 
-* Phi Beta Kappa Inductee (2024) 
-* Alpha Sigma Lambda Honor Society Inductee (2020) 
-
-Activities & Service
-======
-* **Mercile J. Lee Scholarship Program** - Mentor (Sep 2025 - Current) 
-* **N+1 Initiative** - Poster Presenter on LiDAR bloom correction (Apr 2025, Apr 2026) 
-* **Morgridge Entrepreneurial Bootcamp** - Participant (Jul 2025) 
-* **AFRL Poster Session** - Presenter (Aug 2023) 
 
 Publications
 ======
@@ -121,6 +73,55 @@ Publications
     </p>
   {% endfor %}
 </div>
+
+
+Research & Work Experience
+======
+
+### **INTEGRATE Fellow (NSF NRT)** | UW Madison 
+*Jan 2026 - Current*
+* Awarded NSF Research Fellowship for interdisciplinary robotics R&D; project selected for regional NSF I-Corps (ICORP) program.
+
+### **Research Assistant** | UW Madison 
+May 2025 - Jan 2026: Developing solutions for flash SP-LiDAR to enable autonomous driving robust to critical, long tail, failure modes. 
+* Modeled SP-LiDAR glare as a linear inverse problem and correcting artifacts via a training-free inversion process in the raw transient histogram domain. (1st-author CVPR) 
+* Helping to design a SP-LiDAR simulator, VisionSIM, that models phyiscal sensor non-idealities such as glare. (CORL 2027)
+* Currently working on quantifying LiDAR uncertainty in poor weather conditions. 
+
+### **Intern (Contractor for USRA)** | Air Force Research Laboratories (Rome, NY) 
+*Jun 2023 - Aug 2023*: Developed a novel hierarchical active sampling method utilizing a self-supervised approach. 
+* Looked into how self-supervised approaches can improve active learning through the inference of identifiable clusters. 
+
+### **Undergraduate Research Assistant** | Syracuse University 
+*May 2022 - Aug 2022*:  Developed a Python web scraper to harvest and automate the downloading of Alexa audio files by inspecting network traffic. 
+* Created a synchronous recording and playback program for separate audio files across multiple sound devices. 
+
+Teaching Experience
+======
+
+### **Teaching Assistant** | UW Madison 
+*Sep 2024 - May 2025*: Data Science Programming in Python II (Dr. Gurmail Singh) & Discrete Mathematics (Dr. Beck Hasti). Co-led labs/discussions, graded and mentored students in python and algorithmic proofs.
+
+
+Skills
+======
+* **Sensing & Perception:** Single-Photon LiDAR (SP-LiDAR), Sensor Simulation, Adverse Weather Conditions, Inverse Problems.
+* **Languages:** C++, Python (Advanced); UNIX, Java, C, SQL, Haskell, R, MATLAB (Proficient) 
+* **Frameworks/Tools:** PyTorch, TensorFlow, Docker, HTCondor, OpenCV
+Honors & Awards
+======
+* NSF INTEGRATE Fellow (2026)
+* Earl H. DeVoe Prize for Outstanding Undergraduate Research 
+* Phi Beta Kappa Inductee (2024) 
+* Alpha Sigma Lambda Honor Society Inductee (2020) 
+
+Activities & Service
+======
+* **Mercile J. Lee Scholarship Program** - Mentor (Sep 2025 - Current) 
+* **N+1 Initiative** - Poster Presenter on LiDAR bloom correction (Apr 2025, Apr 2026) 
+* **Morgridge Entrepreneurial Bootcamp** - Participant (Jul 2025) 
+* **AFRL Poster Session** - Presenter (Aug 2023) 
+
 
 <div class="cv-download-btn" style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
   <button onclick="window.print()" style="background: #0078d4; color: white; border: none; padding: 12px 24px; border-radius: 6px; font-size: 1.1em; font-weight: bold; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
