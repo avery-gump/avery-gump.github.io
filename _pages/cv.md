@@ -10,8 +10,10 @@ redirect_from:
 {% include base_path %}
 
 <div id="pdf-only-header">
-  <h1 style="margin: 0; font-size: 2.2em; font-weight: 700; color: #111; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">Avery Gump</h1>
-  <p style="margin: 5px 0 0 0; font-size: 1.05em; color: #555;">
+  <h1 style="margin: 0; font-size: 1.6em; font-weight: 700; color: #111; line-height: 1.1; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+    Avery Gump
+  </h1>
+  <p style="margin: 4px 0 0 0; font-size: 0.95em; color: #444;">
     <a href="https://avery-gump.github.io/">Personal Website</a> 
     &nbsp;&bull;&nbsp; 
     <a href="https://www.linkedin.com/in/avery-gump-794383232/">LinkedIn</a>
