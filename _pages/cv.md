@@ -78,27 +78,27 @@ Publications
 # Research & Work Experience
 
 
-### **INTEGRATE Fellow (NSF NRT)** | UW Madison | *Jan 2026 - Current*
+### **INTEGRATE Fellow (NSF NRT)** | UW Madison | Jan 2026 - Current
 * Awarded NSF Research Fellowship for interdisciplinary robotics R&D; project selected for regional NSF I-Corps program.
 
-### **Research Assistant** | UW Madison | May 2025 - Jan 2026
+### **Research Assistant** | UW Madison | May 2025 - Current
 * Develop solutions for flash SP-LiDAR to enable autonomous driving robust to critical, long-tail failure modes. 
 * Formulated SP-LiDAR glare as a linear inverse problem and corrected point cloud artifacts via a training-free inversion process in the raw transient histogram domain (1st-author CVPR 2026). 
 * Co-designed **VisionSIM**, a multi-modal SP-LiDAR simulator modeling physical sensor non-idealities such as retroreflector bloom (CoRL 2027).
 * Quantify LiDAR uncertainty and point-cloud degradation under adverse weather conditions (fog/rain scattering).
 
-### **Intern (Contractor for USRA)** | Air Force Research Laboratories (Rome, NY) | *Jun 2023 - Aug 2023*
+### **Intern (Contractor for USRA)** | Air Force Research Laboratories (Rome, NY) | Jun 2023 - Aug 2023
 * Developed a novel hierarchical active sampling method utilizing a self-supervised approach. 
 * Looked into how self-supervised approaches can improve active learning through the inference of identifiable clusters. 
 
-### **Undergraduate Research Assistant** | Syracuse University | *May 2022 - Aug 2022*
+### **Undergraduate Research Assistant** | Syracuse University | May 2022 - Aug 2022
 * Developed a Python web scraper to harvest and automate the downloading of Alexa audio files by inspecting network traffic. 
 * Created a synchronous recording and playback program for separate audio files across multiple sound devices. 
 
 # Teaching Experience
 
 
-### **Teaching Assistant** | UW Madison | *Sep 2024 - May 2025*
+### **Teaching Assistant** | UW Madison | Sep 2024 - May 2025
 * Data Science Programming in Python II (Dr. Gurmail Singh) & Discrete Mathematics (Dr. Beck Hasti). Co-led labs/discussions, graded and mentored students in python and algorithmic proofs.
 
 
