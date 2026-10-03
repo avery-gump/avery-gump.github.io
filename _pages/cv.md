@@ -75,17 +75,17 @@ Publications
 </div>
 
 
-Research & Work Experience
-======
+# Research & Work Experience
+
 
 ### **INTEGRATE Fellow (NSF NRT)** | UW Madison | *Jan 2026 - Current*
 * Awarded NSF Research Fellowship for interdisciplinary robotics R&D; project selected for regional NSF I-Corps program.
 
 ### **Research Assistant** | UW Madison | May 2025 - Jan 2026
-* Developing solutions for flash SP-LiDAR to enable autonomous driving robust to critical, long tail, failure modes. 
-* Modeled SP-LiDAR glare as a linear inverse problem and correcting artifacts via a training-free inversion process in the raw transient histogram domain. (1st-author CVPR) 
-* Helping to design a SP-LiDAR simulator, VisionSIM, that models phyiscal sensor non-idealities such as glare. (CoRL 2027)
-* Currently working on quantifying LiDAR uncertainty in poor weather conditions. 
+* Develop solutions for flash SP-LiDAR to enable autonomous driving robust to critical, long-tail failure modes. 
+* Formulated SP-LiDAR glare as a linear inverse problem and corrected point cloud artifacts via a training-free inversion process in the raw transient histogram domain (1st-author CVPR 2026). 
+* Co-designed **VisionSIM**, a multi-modal SP-LiDAR simulator modeling physical sensor non-idealities such as retroreflector bloom (CoRL 2027).
+* Quantify LiDAR uncertainty and point-cloud degradation under adverse weather conditions (fog/rain scattering).
 
 ### **Intern (Contractor for USRA)** | Air Force Research Laboratories (Rome, NY) | *Jun 2023 - Aug 2023*
 * Developed a novel hierarchical active sampling method utilizing a self-supervised approach. 
@@ -95,28 +95,28 @@ Research & Work Experience
 * Developed a Python web scraper to harvest and automate the downloading of Alexa audio files by inspecting network traffic. 
 * Created a synchronous recording and playback program for separate audio files across multiple sound devices. 
 
-Teaching Experience
-======
+# Teaching Experience
+
 
 ### **Teaching Assistant** | UW Madison | *Sep 2024 - May 2025*
 * Data Science Programming in Python II (Dr. Gurmail Singh) & Discrete Mathematics (Dr. Beck Hasti). Co-led labs/discussions, graded and mentored students in python and algorithmic proofs.
 
 
-Skills
-======
+# Skills
+
 * **Sensing & Perception:** Single-Photon LiDAR (SP-LiDAR), Sensor Simulation, Adverse Weather Conditions, Inverse Problems.
 * **Languages:** C++, Python (Advanced); UNIX, Java, C, SQL, Haskell, R, MATLAB (Proficient) 
 * **Frameworks/Tools:** PyTorch, TensorFlow, Docker, HTCondor, OpenCV
 
-Honors & Awards
-======
+# Honors & Awards
+
 * NSF INTEGRATE Fellow (2026)
 * Earl H. DeVoe Prize for Outstanding Undergraduate Research 
 * Phi Beta Kappa Inductee (2024) 
 * Alpha Sigma Lambda Honor Society Inductee (2020) 
 
-Activities & Service
-======
+# Activities & Service
+
 * **Mercile J. Lee Scholarship Program** - Mentor (Sep 2025 - Current) 
 * **N+1 Initiative** - Poster Presenter on LiDAR bloom correction (Apr 2025, Apr 2026) 
 * **Morgridge Entrepreneurial Bootcamp** - Participant (Jul 2025) 
@@ -213,9 +213,17 @@ Activities & Service
     .masthead, .sidebar, .page__footer, .cv-download-btn, #theme-toggle, .sidebar__right {
       display: none !important;
     }
+
+    /* Prevents headings from being orphaned at the bottom of a page */
+    h1, h2, h3 {
+      break-after: avoid;
+      page-break-after: avoid;
+    }
     
-    .cv-publications p, li {
+    /* Prevents entries and headings from breaking awkwardly mid-element */
+    .cv-publications p, li, h3 {
       page-break-inside: avoid;
+      break-inside: avoid;
     }
   }
 </style>
