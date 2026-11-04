@@ -48,6 +48,12 @@ Publications
       {% if name_parts.size > 1 %}
         {% assign first_name_raw = name_parts[1] | strip %}
         {% assign first_initial = first_name_raw | slice: 0, 1 | append: "." %}
+        
+        {% comment %} Preserve the equal contribution asterisk if present {% endcomment %}
+        {% if first_name_raw contains "*" %}
+          {% assign first_initial = first_initial | append: "*" %}
+        {% endif %}
+        
         {% assign apa_name = last_name | append: ", " | append: first_initial %}
       {% else %}
         {% assign apa_name = last_name %}
@@ -71,11 +77,10 @@ Publications
     {% endfor %}
 
     <p>
-      {{ formatted_authors }} ({{ cite_data.year }}). "{{ cite_data.title }}." <i>{{ venue }}</i>{% if cite_data.volume %}, {{ cite_data.volume }}{% endif %}{% if cite_data.issue %}({{ cite_data.issue }}){% endif %}{% if cite_data.pages %}, {{ cite_data.pages | replace: '--', '-' }}{% endif %}.
+      {{ formatted_authors }} ({{ cite_data.year }}). "{{ cite_data.title }}." <i>{{ venue }}</i>{% if cite_data.volume %}, {{ cite_data.volume }}{% endif %}{% if cite_data.issue %}({{ cite_data.issue }}){% endif %}{% if cite_data.pages %}, {{ cite_data.pages | replace: '--', '-' }}{% endif %}.{% if cite_data.note %} {{ cite_data.note }}.{% endif %}
     </p>
   {% endfor %}
 </div>
-
 
 # Research & Work Experience
 

@@ -8,13 +8,29 @@ visionsim2026:
 ghosts2026:
   type: "inproceedings"
   title: "Ghosts in the Point Clouds: De-glaring LiDAR in the Transient Domain"
-  authors: "Gump, Avery and Henley, Connor and Cheong, Sungjin and Prabhakara, Akarsh and Gupta, Mohit"
+  authors: "Gump, Avery* and Henley, Connor* and Cheong, Sungjin and Prabhakara, Akarsh and Gupta, Mohit"
   booktitle: "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
   year: 2026
   volume: 1
   issue: 1
   pages: "100-115"
   publisher: "IEEE"
+  note: "*Denotes equal contribution"
+
+robosoft2027:
+  type: "unpublished"
+  title: "Title Withheld for Double-Blind Review"
+  authors: "Townsend, William J.* and Zupfer, John P.* and Gump, Avery* and Pfefferkorn, Frank E. and Zinn, Mike and Gupta, Mohit and Mutlu, Bilge and Pikul, James H."
+  journal: "Under review at a top-tier soft robotics conference"
+  year: 2027
+  note: "*Denotes equal contribution"
+
+sensys2027:
+  type: "unpublished"
+  title: "Title Withheld for Double-Blind Review"
+  authors: "Zheng, Zhi and Xie, Xincheng and Gump, Avery and Jungerman, Sacha and Li, Hongyang and Li, Yin and Gupta, Mohit and Prabhakara, Akarsh"
+  journal: "Under review at a top-tier mobile sensing conference"
+  year: 2027
 
 crop2025:
   type: "article"
@@ -38,16 +54,3 @@ privacy2023:
   pages: "Article 126"
   publisher: "ACM"
 
-robosoft2027:
-  type: "unpublished"
-  title: "Title Withheld for Double-Blind Review"
-  authors: "Townsend, William J.* and Zupfer, John P.* and Gump, Avery* and Pfefferkorn, Frank E. and Zinn, Mike and Gupta, Mohit and Mutlu, Bilge and Pikul, James H."
-  note: "Under review at IEEE RoboSoft. *Denotes equal contribution."
-  year: 2027
-
-sensys2027:
-  type: "unpublished"
-  title: "Title Withheld for Double-Blind Review"
-  authors: "Zheng, Zhi and Xie, Xincheng and Gump, Avery and Jungerman, Sacha and Li, Hongyang and Li, Yin and Gupta, Mohit and Prabhakara, Akarsh"
-  note: "Under review at ACM SenSys."
-  year: 2027
